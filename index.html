@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Bob Ippolito" />
+  <meta name="dcterms.date" content="2013-09-26" />
+  <title>Introducing Erlang</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <link rel="stylesheet" href="css/slides.css"/>
+    <script src="d3/d3.min.js"></script>
+    <script src="js/slides.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Introducing Erlang</h1>
+    <h2 class="author">Bob Ippolito</h2>
+    <h3 class="date">September 26, 2013</h3>
+</section>
+
+<section id="what-do-i-know" class="slide level1">
+<h1>What do I know?</h1>
+<ul>
+<li>Erlang user since 2006</li>
+<li>Founded Mochi Media, Inc. (CTO from 2005-2012)</li>
+<li>Developed popular Erlang web server (mochiweb)</li>
+</ul>
+</section>
+<section id="erlang" class="slide level1">
+<h1>Erlang</h1>
+<ul>
+<li><strong>Er</strong>icsson <strong>lang</strong>uage</li>
+</ul>
+<figure>
+<img src="img/Erlang.jpg" alt="Agner Krarup Erlang" /><figcaption>Agner Krarup <strong>Erlang</strong></figcaption>
+</figure>
+</section>
+<section id="raison-dêtre" class="slide level1">
+<h1>Raison d'être</h1>
+<ul>
+<li>Came from Ericsson R&amp;D in the 80s</li>
+<li>Telecom shifting to packet switching</li>
+<li>Multi-service networks</li>
+<li>Improve development of telephony applications</li>
+<li>Scalable, distributed, no down time, fast development</li>
+</ul>
+</section>
+<section id="domain" class="slide level1">
+<h1>Domain</h1>
+<p><em>Distributed massively concurrent soft-realtime systems that do not stop.</em></p>
+</section>
+<section id="section" class="slide level1">
+<h1></h1>
+<section id="applications">
+<h1>
+Applications
+</h1>
+
+<ul>
+<li>Networking (Switching, Routing, SDN)</li>
+<li>Messaging (SMS, MMS, IM) services</li>
+<li>Distributed systems (Databases, cluster management)</li>
+<li>Web services (analytics, ad servers)</li>
+<li>Simulation (testing)</li>
+<li>Game servers
+</section>
+</li>
+</ul>
+<section id="app-telecom" class="logos">
+<h2>
+Telecom
+</h2>
+
+<p><img src="img/ericsson-logo.svg" id="ericsson-logo" alt="Ericsson"/> <img src="img/nokia-logo.svg" id=nokia-logo" alt="Nokia"/> <img src="img/att-logo.svg" id="att-logo" alt="AT&amp;T"/> <br/> <img src="img/motorola-logo.svg" id="motorola-logo" alt="Motorola"/> <img src="img/bt-logo.svg" id="bt-logo" alt="BT"/> <img src="img/t-mobile-logo.svg" id="t-mobile-logo" alt="T-Mobile"/></p>
+</section>
+
+<section id="app-erlang" class="logos">
+
+<p><img src="img/erlang-solutions-logo.svg" id="erlang-solutions-logo" alt="Erlang Solutions"/></p>
+<ul>
+<li>Conferences</li>
+<li>Training</li>
+<li>Certification</li>
+<li>Consulting</li>
+<li>Support
+</section>
+</li>
+</ul>
+<section id="app-db" class="logos">
+<h2>
+Database Vendors
+</h2>
+
+<img src="img/basho-logo.svg" id="basho-logo" alt="Basho"/> <img src="img/cloudant-logo.png" id="cloudant-logo" alt="Cloudant"/>
+</section>
+
+<section id="app-ads">
+<h2>
+Advertising
+</h2>
+
+<ul>
+<li>Mochi Media</li>
+<li>AdRoll</li>
+<li>OpenX</li>
+<li>AdGear</li>
+<li>AOL
+</section>
+</li>
+</ul>
+<section id="app-cloud">
+<h2>
+Cloud / Data Center Automation
+</h2>
+
+<ul>
+<li>Rackspace</li>
+<li>Opscode</li>
+<li>Heroku</li>
+<li>VMWare
+</section>
+</li>
+</ul>
+<section id="app-mobile">
+<h2>
+Mobile/VoIP services
+</h2>
+
+<ul>
+<li>WhatsApp</li>
+<li>2600hz</li>
+<li>TigerText
+</section>
+</li>
+</ul>
+<section id="app-monitoring">
+<h2>
+Monitoring / Ops
+</h2>
+
+<ul>
+<li>Boundary</li>
+<li>BugSense</li>
+<li>Alert Logic
+</section>
+</li>
+</ul>
+<section id="app-media" class="logos">
+<h2>
+Media
+</h2>
+
+<img src="img/the-boston-globe-logo.svg" id="the-boston-globe-logo" alt="The Boston Globe"/> <br/> <img src="img/the-huffington-post-logo.gif" id="the-huffington-post-logo" alt="The Huffington Post"/>
+</section>
+
+<section id="app-games">
+<h2>
+Games
+</h2>
+
+<ul>
+<li>Spilgames</li>
+<li>Wooga</li>
+<li>MuchDifferent / Pikkotekk</li>
+<li>Linden Lab
+</section>
+</li>
+</ul>
+<section id="app-money">
+<h2>
+Money
+</h2>
+
+<ul>
+<li>Klarna (payments)</li>
+<li>Smarkets (sports betting)
+</section>
+</li>
+</ul>
+<section id="app-open-source">
+<h2>
+Open Source
+</h2>
+
+<ul>
+<li>Riak (Basho)</li>
+<li>CouchDB (CouchBase, Cloudant)</li>
+<li>ejabberd (Process-One)</li>
+<li>RabbitMQ (LShift → VMWare)
+</section>
+</li>
+</ul>
+</section>
+<section id="not-good-for" class="slide level1">
+<h1>Not good for</h1>
+<ul>
+<li>Client side applications (GUIs)</li>
+<li>… but web-based UIs work well</li>
+<li>Number crunching</li>
+</ul>
+</section>
+<section id="section-1" class="slide level1">
+<h1></h1>
+<section id="ancestry">
+<h1>
+Ancestry
+</h1>
+
+<ul>
+<li>Syntax mostly from Prolog and ML</li>
+<li>List comprehensions from Miranda</li>
+<li>Message passing inspired by Smalltalk
+</section>
+</li>
+</ul>
+<section id="prolog-roots">
+<p>Erlang was prototyped in Prolog:</p>
+<pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% factorial.pl (Prolog)</span>
+<span class="kw">:-</span> module(factorial<span class="kw">,</span> [factorial<span class="fu">/</span><span class="dv">2</span>])<span class="kw">.</span>
+
+factorial(<span class="dv">0</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>
+factorial(<span class="dt">N</span><span class="kw">,</span> <span class="dt">F</span>) <span class="kw">:-</span>
+  <span class="dt">N&gt;</span><span class="dv">0</span><span class="kw">,</span>
+  <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span>
+  factorial(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">F1</span>)<span class="kw">,</span>
+  <span class="dt">F</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">*</span> <span class="dt">F1</span><span class="kw">.</span></code></pre>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">% factorial.erl (Erlang)</span>
+<span class="kw">-module</span><span class="fu">(</span><span class="ch">factorial</span><span class="fu">).</span>
+<span class="kw">-export</span><span class="fu">([</span><span class="ch">factorial</span><span class="kw">/</span><span class="dv">2</span><span class="fu">]).</span>
+
+<span class="fu">factorial(</span><span class="dv">0</span><span class="fu">)</span> <span class="kw">-&gt;</span> <span class="dv">1</span><span class="fu">;</span>
+<span class="fu">factorial(</span><span class="dt">N</span><span class="fu">)</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">&gt;</span> <span class="dv">0</span> <span class="kw">-&gt;</span>
+  <span class="dt">N</span> <span class="kw">*</span> <span class="fu">factorial(</span><span class="dt">N</span> <span class="kw">-</span> <span class="dv">1</span><span class="fu">).</span></code></pre>
+</section>
+
+<section id="miranda-roots">
+<p>List comprehensions from Miranda (like Haskell)</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Subsets.hs</span>
+<span class="kw">module</span> <span class="dt">Subsets</span> (subsets) <span class="kw">where</span>
+
+<span class="ot">subsets ::</span> [a] <span class="ot">-&gt;</span> [[a]]
+subsets []     <span class="fu">=</span> [[]]
+subsets (x<span class="fu">:</span>xs) <span class="fu">=</span> [(x<span class="fu">:</span>y) <span class="fu">|</span> y <span class="ot">&lt;-</span> ys] <span class="fu">++</span> ys
+  <span class="kw">where</span> ys <span class="fu">=</span> subsets xs</code></pre>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">% subsets.erl</span>
+<span class="kw">-module</span><span class="fu">(</span><span class="ch">subsets</span><span class="fu">).</span>
+<span class="kw">-export</span><span class="fu">([</span><span class="ch">subsets</span><span class="kw">/</span><span class="dv">1</span><span class="fu">]).</span>
+
+<span class="fu">subsets([])</span> <span class="kw">-&gt;</span>
+    <span class="fu">[[]];</span>
+<span class="fu">subsets([</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">Xs</span><span class="fu">])</span> <span class="kw">-&gt;</span>
+    <span class="dt">Ys</span> <span class="kw">=</span> <span class="fu">subsets(</span><span class="dt">Xs</span><span class="fu">),</span>
+    <span class="fu">[[</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">Y</span><span class="fu">]</span> <span class="fu">||</span> <span class="dt">Y</span> <span class="kw">&lt;-</span> <span class="dt">Ys</span><span class="fu">]</span> <span class="kw">++</span> <span class="dt">Ys</span><span class="fu">.</span></code></pre>
+</section>
+
+<section id="ml-roots">
+<p>Pattern matching like ML</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="co">(* reverse.sml *)</span>
+<span class="kw">fun</span> reverse(l : &#39;a <span class="dt">list</span>) : &#39;a <span class="dt">list</span> =
+    reverse1(l, [])
+
+<span class="kw">fun</span> reverse1(l : &#39;a <span class="dt">list</span>, acc : &#39;a <span class="dt">list</span>) =
+    case l <span class="kw">of</span>
+        [] =&gt; acc
+      | (x::xs) =&gt; reverse1(xs, x::acc)</code></pre>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">% reverse.erl</span>
+<span class="kw">-module</span><span class="fu">(</span><span class="ch">reverse</span><span class="fu">).</span>
+<span class="kw">-export</span><span class="fu">([</span><span class="ch">reverse</span><span class="kw">/</span><span class="dv">1</span><span class="fu">]).</span>
+
+<span class="fu">reverse(</span><span class="dt">L</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="fu">reverse(</span><span class="dt">L</span><span class="fu">,</span> <span class="fu">[]).</span>
+
+<span class="fu">reverse(</span><span class="dt">L</span><span class="fu">,</span> <span class="dt">Acc</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="kw">case</span> <span class="dt">L</span> <span class="kw">of</span>
+        <span class="fu">[]</span> <span class="kw">-&gt;</span> <span class="dt">Acc</span><span class="fu">;</span>
+        <span class="fu">[</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">Rest</span><span class="fu">]</span> <span class="kw">-&gt;</span> <span class="fu">reverse(</span><span class="dt">Rest</span><span class="fu">,</span> <span class="fu">[</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">Acc</span><span class="fu">])</span>
+    <span class="kw">end</span><span class="fu">.</span></code></pre>
+</section>
+
+<section id="smalltalk-roots">
+Smalltalk didn't really use concurrency for actors or message passing, so the relationship is mostly conceptual.
+</section>
+
+</section>
+<section id="key-features" class="slide level1">
+<h1>Key Features</h1>
+<ul>
+<li>Declarative</li>
+<li>Concurrent</li>
+<li>Multi-core</li>
+<li>Distributed</li>
+<li>Robust</li>
+<li>Versatile</li>
+</ul>
+</section>
+<section id="section-2" class="slide level1">
+<h1></h1>
+<section id="declarative">
+<h1>
+Declarative
+</h1>
+
+<ul>
+<li>&quot;Describe the problem, not the solution&quot;</li>
+<li>Great syntax for this (but not C-like)!</li>
+<li>Functional code is (often) easier to understand and test</li>
+<li>… but not 100% pure (message passing is a side-effect)
+</section>
+</li>
+</ul>
+<section id="merge-sort">
+
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">-module</span><span class="fu">(</span><span class="ch">merge_sort</span><span class="fu">).</span>
+<span class="kw">-export</span><span class="fu">([</span><span class="ch">merge_sort</span><span class="kw">/</span><span class="dv">1</span><span class="fu">]).</span>
+
+<span class="co">% bottom-up merge sort</span>
+<span class="fu">merge_sort([])</span> <span class="kw">-&gt;</span>
+    <span class="fu">[];</span>
+<span class="fu">merge_sort(</span><span class="dt">L</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="fu">iterate([[</span><span class="dt">X</span><span class="fu">]</span> <span class="fu">||</span> <span class="dt">X</span> <span class="kw">&lt;-</span> <span class="dt">L</span><span class="fu">]).</span>
+
+<span class="fu">iterate([</span><span class="dt">Xs</span><span class="fu">])</span> <span class="kw">-&gt;</span>
+    <span class="dt">Xs</span><span class="fu">;</span>
+<span class="fu">iterate(</span><span class="dt">Lists</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="fu">iterate(merge_lists(</span><span class="dt">Lists</span><span class="fu">)).</span>
+
+<span class="fu">merge_lists([</span><span class="dt">Xs</span><span class="fu">,</span> <span class="dt">Ys</span> <span class="fu">|</span> <span class="dt">Rest</span><span class="fu">])</span> <span class="kw">-&gt;</span>
+    <span class="fu">[merge2(</span><span class="dt">Xs</span><span class="fu">,</span> <span class="dt">Ys</span><span class="fu">)</span> <span class="fu">|</span> <span class="fu">merge_lists(</span><span class="dt">Rest</span><span class="fu">)];</span>
+<span class="fu">merge_lists(</span><span class="dt">Lists</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="dt">Lists</span><span class="fu">.</span>
+
+<span class="fu">merge2(</span><span class="dt">Xs</span><span class="kw">=</span><span class="fu">[</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">_</span><span class="fu">],</span> <span class="fu">[</span><span class="dt">Y</span> <span class="fu">|</span> <span class="dt">Ys</span><span class="fu">])</span> <span class="ch">when</span> <span class="dt">X</span> <span class="kw">&gt;</span> <span class="dt">Y</span> <span class="kw">-&gt;</span>
+    <span class="fu">[</span><span class="dt">Y</span> <span class="fu">|</span> <span class="fu">merge2(</span><span class="dt">Xs</span><span class="fu">,</span> <span class="dt">Ys</span><span class="fu">)];</span>
+<span class="fu">merge2([</span><span class="dt">X</span> <span class="fu">|</span> <span class="dt">Xs</span><span class="fu">],</span> <span class="dt">Ys</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="fu">[</span><span class="dt">X</span> <span class="fu">|</span> <span class="fu">merge2(</span><span class="dt">Xs</span><span class="fu">,</span> <span class="dt">Ys</span><span class="fu">)];</span>
+<span class="fu">merge2([],</span> <span class="dt">Ys</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="dt">Ys</span><span class="fu">.</span></code></pre>
+</section>
+
+<section id="merge-sort-python">
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># merge_sort.py</span>
+<span class="kw">def</span> merge_sort(lst):
+    <span class="kw">if</span> not lst:
+        <span class="kw">return</span> []
+    lists = [[x] <span class="kw">for</span> x in lst]
+    <span class="kw">while</span> <span class="dt">len</span>(lists) &gt; <span class="dv">1</span>:
+        lists = merge_lists(lists)
+    <span class="kw">return</span> lists[<span class="dv">0</span>]
+
+<span class="kw">def</span> merge_lists(lists):
+    result = []
+    <span class="kw">for</span> i in <span class="dt">range</span>(<span class="dv">0</span>, <span class="dt">len</span>(lists) // <span class="dv">2</span>):
+        result.append(merge2(lists[i*<span class="dv">2</span>], lists[i*<span class="dv">2</span> + <span class="dv">1</span>]))
+    <span class="kw">if</span> <span class="dt">len</span>(lists) % <span class="dv">2</span>:
+        result.append(lists[-<span class="dv">1</span>])
+    <span class="kw">return</span> result
+
+<span class="kw">def</span> merge2(xs, ys):
+    i = <span class="dv">0</span>
+    j = <span class="dv">0</span>
+    result = []
+    <span class="kw">while</span> i &lt; <span class="dt">len</span>(xs) and j &lt; <span class="dt">len</span>(ys):
+        x = xs[i]
+        y = ys[j]
+        <span class="kw">if</span> x &gt; y:
+            result.append(y)
+            j += <span class="dv">1</span>
+        <span class="kw">else</span>:
+            result.append(x)
+            i += <span class="dv">1</span>
+    result.extend(xs[i:])
+    result.extend(ys[j:])
+    <span class="kw">return</span> result</code></pre>
+</section>
+
+<section id="parse-tcp">
+<p>Convenient bit syntax for parsing binary data</p>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">%% This parses a TCP packet header!</span>
+<span class="kw">&lt;&lt;</span> <span class="dt">SourcePort</span><span class="fu">:</span><span class="dv">16</span><span class="fu">,</span> <span class="dt">DestinationPort</span><span class="fu">:</span><span class="dv">16</span><span class="fu">,</span> <span class="dt">SequenceNumber</span><span class="fu">:</span><span class="dv">32</span><span class="fu">,</span>
+   <span class="dt">AckNumber</span><span class="fu">:</span><span class="dv">32</span><span class="fu">,</span> <span class="dt">DataOffset</span><span class="fu">:</span><span class="dv">4</span><span class="fu">,</span> <span class="dt">_Reserved</span><span class="fu">:</span><span class="dv">4</span><span class="fu">,</span> <span class="dt">Flags</span><span class="fu">:</span><span class="dv">8</span><span class="fu">,</span>
+   <span class="dt">WindowSize</span><span class="fu">:</span><span class="dv">16</span><span class="fu">,</span> <span class="dt">Checksum</span><span class="fu">:</span><span class="dv">16</span><span class="fu">,</span> <span class="dt">UrgentPointer</span><span class="fu">:</span><span class="dv">16</span><span class="fu">,</span>
+   <span class="dt">Payload</span><span class="kw">/</span><span class="ch">binary</span> <span class="kw">&gt;&gt;</span> <span class="kw">=</span> <span class="dt">Segment</span><span class="fu">,</span>
+<span class="dt">OptSize</span> <span class="kw">=</span> <span class="fu">(</span><span class="dt">DataOffset</span> <span class="kw">-</span> <span class="dv">5</span><span class="fu">)</span><span class="kw">*</span><span class="dv">32</span><span class="fu">,</span>
+<span class="kw">&lt;&lt;</span> <span class="dt">Options</span><span class="fu">:</span><span class="dt">OptSize</span><span class="fu">,</span> <span class="dt">Message</span><span class="kw">/</span><span class="ch">binary</span> <span class="kw">&gt;&gt;</span> <span class="kw">=</span> <span class="dt">Payload</span><span class="fu">,</span>
+<span class="kw">&lt;&lt;</span> <span class="dt">CWR</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">ECE</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">URG</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">ACK</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">PSH</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">RST</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">SYN</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span> <span class="dt">FIN</span><span class="fu">:</span><span class="dv">1</span><span class="kw">&gt;&gt;</span> <span class="kw">=</span> <span class="kw">&lt;&lt;</span><span class="dt">Flags</span><span class="fu">:</span><span class="dv">8</span><span class="kw">&gt;&gt;</span><span class="fu">,</span>
+
+<span class="co">%% Can now process the Message according to the </span>
+<span class="co">%% Options (if any) and the flags CWR, …, FIN etc.</span></code></pre>
+</section>
+
+</section>
+<section id="section-3" class="slide level1">
+<h1></h1>
+<section id="concurrent">
+<h1>
+Concurrent
+</h1>
+
+<ul>
+<li>Erlang concurrency is cheap</li>
+<li>Per-process heaps with incremental GC</li>
+<li>Message passing, not mutexes</li>
+<li>Straightforward control flow (not callbacks!)
+</section>
+</li>
+</ul>
+<section id="cost-of-concurrency">
+<p>RAM footprint per unit of concurrency (approx)</p>
+<table id="concurrency-table">
+<tr class="haskell">
+    <td class="num">
+1.3KB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>Haskell ThreadId + MVar (GHC 7.6.3, 64-bit)</span>
+</td>
+</tr>
+<tr class="erlang">
+    <td class="num">
+2.6 KB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>Erlang process (64-bit)</span>
+</td>
+</tr>
+<tr class="go">
+    <td class="num">
+4.0 KB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>Go goroutine</span>
+</td>
+</tr>
+<tr class="java-min">
+    <td class="num">
+64.0 KB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>Java thread stack (minimum)</span>
+</td>
+</tr>
+<tr class="c-min">
+    <td class="num">
+64.0 KB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>C pthread stack (minimum)</span>
+</td>
+</tr>
+<tr class="placeholder"><td colspan="2"><hr/></td></td>
+<tr class="java">
+    <td class="num">
+1 MB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>Java thread stack (default)</span>
+</td>
+</tr>
+<tr class="c">
+    <td class="num">
+8 MB
+</td>
+    <td class="name">
+        <div class="bar-ctr"><div class="bar"></div></div>
+        
+<span>C pthread stack (default, 64-bit Mac OS X)</span>
+</td>
+</tr>
+</table>
+</section>
+
+<section id="per-process-heaps">
+<h2>
+Per-process heaps
+</h2>
+
+<ul>
+<li>No sharing</li>
+<li>GC is per-process, and not &quot;stop the world&quot;!</li>
+<li>Process references do not prevent GC</li>
+<li>Explicitly hibernate idle processes for compaction
+</section>
+</li>
+</ul>
+<section id="message-passing">
+<h3>
+RPC with a Counter process
+</h3>
+
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dt">Counter</span> <span class="kw">!</span> <span class="fu">{self(),</span> <span class="fu">{</span><span class="ch">add</span><span class="fu">,</span> <span class="dv">1</span><span class="fu">}},</span>
+<span class="kw">receive</span>
+  <span class="fu">{</span><span class="dt">Counter</span><span class="fu">,</span> <span class="fu">{</span><span class="ch">result</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}}</span> <span class="kw">-&gt;</span>
+    <span class="fu">io:format(</span><span class="st">&quot;~p~n&quot;</span><span class="fu">,</span> <span class="fu">[</span><span class="dt">N</span><span class="fu">])</span>
+<span class="kw">end</span></code></pre>
+</section>
+
+</section>
+<section id="section-4" class="slide level1">
+<h1></h1>
+<section id="multi-core">
+<h1>
+Multi-core
+</h1>
+
+<ul>
+<li>One scheduler per core, scales well to 32+ cores</li>
+<li>Better scalability to more cores is in-progress</li>
+<li>Schedulers understand IO (disk, network calls)</li>
+<li>No implicit synchronization
+</section>
+</li>
+</ul>
+<section id="scheduler">
+<object type="image/svg+xml" data="img/scheduler.svg"></object>
+</section>
+
+<section id="parse-http">
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">%% Parse HTTP headers from Socket</span>
+<span class="fu">headers(</span><span class="dt">Socket</span><span class="fu">,</span> <span class="dt">Request</span><span class="fu">,</span> <span class="dt">Headers</span><span class="fu">)</span> <span class="kw">-&gt;</span>
+    <span class="ch">ok</span> <span class="kw">=</span> <span class="fu">inet:setopts(</span><span class="dt">Socket</span><span class="fu">,</span> <span class="fu">[{</span><span class="ch">active</span><span class="fu">,</span> <span class="ch">once</span><span class="fu">}]),</span>
+    <span class="kw">receive</span>
+        <span class="fu">{</span><span class="ch">http</span><span class="fu">,</span> <span class="dt">_</span><span class="fu">,</span> <span class="ch">http_eoh</span><span class="fu">}</span> <span class="kw">-&gt;</span>
+            <span class="co">%% All of the HTTP headers are parsed</span>
+            <span class="fu">handle_request(</span><span class="dt">Socket</span><span class="fu">,</span> <span class="dt">Request</span><span class="fu">,</span> <span class="dt">Headers</span><span class="fu">);</span>
+        <span class="fu">{</span><span class="ch">http</span><span class="fu">,</span> <span class="dt">_</span><span class="fu">,</span> <span class="fu">{</span><span class="ch">http_header</span><span class="fu">,</span> <span class="dt">_</span><span class="fu">,</span> <span class="dt">Name</span><span class="fu">,</span> <span class="dt">_</span><span class="fu">,</span> <span class="dt">Value</span><span class="fu">}}</span> <span class="kw">-&gt;</span>
+            <span class="fu">headers(</span><span class="dt">Socket</span><span class="fu">,</span> <span class="dt">Request</span><span class="fu">,</span> <span class="fu">[{</span><span class="dt">Name</span><span class="fu">,</span> <span class="dt">Value</span><span class="fu">}</span> <span class="fu">|</span> <span class="dt">Headers</span><span class="fu">]);</span>
+        <span class="fu">{</span><span class="ch">tcp_closed</span><span class="fu">,</span> <span class="dt">_</span><span class="fu">}</span> <span class="kw">-&gt;</span>
+            <span class="fu">exit(</span><span class="ch">normal</span><span class="fu">);</span>
+        <span class="dt">_Other</span> <span class="kw">-&gt;</span>
+            <span class="co">%% Invalid request</span>
+            <span class="fu">exit(</span><span class="ch">normal</span><span class="fu">)</span>
+    <span class="kw">after</span> <span class="fu">?</span><span class="dt">HEADERS_RECV_TIMEOUT</span> <span class="kw">-&gt;</span>
+        <span class="fu">exit(</span><span class="ch">normal</span><span class="fu">)</span>
+    <span class="kw">end</span><span class="fu">.</span></code></pre>
+</section>
+
+</section>
+<section id="section-5" class="slide level1">
+<h1></h1>
+<section id="distributed">
+<h1>
+Distributed
+</h1>
+
+<ul>
+<li>Built-in distributed computing support</li>
+<li>Easy to get started, &quot;no configuration&quot;</li>
+<li>Same syntax, similar semantics, whether local or not</li>
+<li>Necessary for true fault tolerant systems (2+ nodes)</li>
+<li>Scales well to hundreds of nodes (LAN only)
+</section>
+</li>
+</ul>
+<section id="distributed-example">
+<p>Connect to other nodes by name</p>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">1</span><span class="kw">&gt;</span> <span class="fu">net_adm:ping(</span><span class="ch">node2@res</span><span class="fu">).</span>
+<span class="ch">pong</span>
+<span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">2</span><span class="kw">&gt;</span> <span class="fu">self().</span>
+<span class="kw">&lt;</span><span class="fl">0.38</span><span class="fu">.</span><span class="dv">0</span><span class="kw">&gt;</span>
+<span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">3</span><span class="kw">&gt;</span> <span class="fu">rpc:call(</span><span class="ch">node2@res</span><span class="fu">,</span> <span class="ch">erlang</span><span class="fu">,</span> <span class="fu">self,</span> <span class="fu">[]).</span>
+<span class="kw">&lt;</span><span class="fl">6943.43</span><span class="fu">.</span><span class="dv">0</span><span class="kw">&gt;</span>
+<span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">4</span><span class="kw">&gt;</span> <span class="fu">nodes().</span>
+<span class="fu">[</span><span class="ch">node2@res</span><span class="fu">]</span>
+<span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">5</span><span class="kw">&gt;</span> <span class="fu">rpc:cast(</span><span class="ch">node2@res</span><span class="fu">,</span> <span class="ch">init</span><span class="fu">,</span> <span class="ch">stop</span><span class="fu">,</span> <span class="fu">[]).</span>
+<span class="ch">true</span>
+<span class="fu">(</span><span class="ch">node1@res</span><span class="fu">)</span><span class="dv">6</span><span class="kw">&gt;</span> <span class="fu">nodes().</span>
+<span class="fu">[]</span></code></pre>
+</section>
+
+<section id="distributed-diagram">
+<svg viewBox="0 0 1000 1000" class="full diagram"> <g class="host" transform="translate(20,20)" data-host="alto"> <rect width="460" height="900"/> <text x="230" y="1em">alto</text> <g class="node" data-node="alice@alto" transform="translate(30, 100)"> <rect width="400" height="650"/> <text x="200" y="1em">alice@alto</text> <g class="worker" data-name="PidA" transform="translate(200,170)"> <circle r="100"/> <text>PidA</text> </g> <g class="supervisor" data-name="net_kernelA" transform="translate(200,470)"> <line x1="0" y1="100" x2="0", y2="230" class="tcp" data-link="net_kernelA epmdA"/> <line x1="70.71" y1="70.71" x2="300", y2="230" class="tcp phase1" data-link="net_kernelA epmdB"/> <line x1="100" y1="0" x2="400", y2="0" class="tcp phase2" data-link="net_kernelA net_kernelB"/> <circle r="100"/> <text>net_kernel</text> </g> </g> <g class="epmd" transform="translate(30, 800)"> <rect width="400" height="60"/> <text x="200" y="1em">epmd</text> </g> </g> <g class="host" transform="translate(520,20)" data-host="onyx"> <rect width="460" height="900"/> <text x="230" y="1em">onyx</text> <g class="node" data-node="bob@onyx" transform="translate(30, 100)"> <rect width="400" height="650"/> <text x="200" y="1em">bob@onyx</text> <g class="worker" data-name="PidB" transform="translate(200,170)"> <circle r="100"/> <text>PidB</text> </g> <g class="supervisor" data-name="net_kernelB" transform="translate(200,470)"> <line x1="0" y1="100" x2="0", y2="230" class="tcp" data-link="net_kernelB epmdB"/> <circle r="100"/> <text>net_kernel</text> </g> </g> <g class="epmd" transform="translate(30, 800)"> <rect width="400" height="60" data-name="epmdB"/> <text x="200" y="1em">epmd</text> </g> </g> </svg>
+</section>
+
+</section>
+<section id="section-6" class="slide level1">
+<h1></h1>
+<section id="robust">
+<h1>
+Robust
+</h1>
+
+<ul>
+<li>OTP framework encodes these best practices</li>
+<li>Processes can be linked for exit signal propagation</li>
+<li>Errors are localized and do not corrupt application state</li>
+<li>Supervisor processes start/stop/monitor other processes</li>
+<li>&quot;Let it crash&quot; means far less error handling code
+</section>
+</li>
+</ul>
+<section id="otp">
+<h1>
+OTP
+</h1>
+<p>Open Telephony Platform</p>
+Framework has little to do with telephony.
+</section>
+
+<section id="supervisor">
+<svg viewBox="0 0 1000 1000" class="full diagram"> <line x1="430" x2="350" y1="220" y2="400" data-link="SupervisorA WorkerA"/> <line x1="570" x2="650" y1="220" y2="400" data-link="SupervisorA SupervisorB"/> <line x1="580" x2="400" y1="570" y2="700" data-link="SupervisorB WorkerB1"/> <line x1="650" x2="650" y1="600" y2="700" data-link="SupervisorB WorkerB2"/> <line x1="720" x2="900" y1="570" y2="700" data-link="SupervisorB WorkerB3"/> <g class="supervisor" transform="translate(500, 150)" data-name="SupervisorA"> <circle r="100"></circle> <text>SupervisorA</text> </g> <g class="worker" transform="translate(350, 500)" data-name="WorkerA"> <circle r="100"></circle> <text>WorkerA</text> </g> <g class="supervisor" transform="translate(650, 500)" data-name="SupervisorB"> <circle r="100"></circle> <text>SupervisorB</text> </g> <g class="worker" transform="translate(400, 800)" data-name="WorkerB1"> <circle r="100"></circle> <text>WorkerB1</text> </g> <g class="worker" transform="translate(650, 800)" data-name="WorkerB2"> <circle r="100"></circle> <text>WorkerB2</text> </g> <g class="worker" transform="translate(900, 800)" data-name="WorkerB3"> <circle r="100"></circle> <text>WorkerB3</text> </g> </svg>
+</section>
+
+</section>
+<section id="versatile" class="slide level1">
+<h1>Versatile</h1>
+<ul>
+<li>Upgrade/fix live systems with hot code loading</li>
+<li>Debug/profile live systems with tracing</li>
+<li>Easily attach a console to a live system</li>
+<li>Good support for instrumentation</li>
+</ul>
+</section>
+<section id="section-7" class="slide level1">
+<h1></h1>
+<section id="language-overview">
+<h2>
+Language Overview
+</h2>
+</section>
+
+<section id="functional">
+<h2>
+Functional
+</h2>
+<ul>
+<li>No mutable data structures</li>
+<li>Linked lists (like LISP)</li>
+<li>All state is on the stack</li>
+<li>Tail-call elimiation
+</section>
+</li>
+</ul>
+<section id="basic-types" class="syntax">
+<dl>
+<dt>
+atom (interned string, like LISP)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="ch">this_is_an_atom</span>
+<span class="ch">&#39;also an atom&#39;</span></code></pre>
+</dd>
+<dt>
+binary (contiguous array of bytes w/ O(1) slice)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">&lt;&lt;</span><span class="dv">1</span><span class="fu">,</span> <span class="dv">2</span><span class="fu">,</span> <span class="st">&quot;bytes&quot;</span><span class="fu">,</span> <span class="dv">9999</span><span class="fu">:</span><span class="dv">64</span><span class="kw">/</span><span class="ch">little</span><span class="kw">&gt;&gt;</span></code></pre>
+</dd>
+<dt>
+integer (unbounded), float (64-bit double)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1125899839733759</span>
+<span class="fl">2.5</span></code></pre>
+</dd>
+<dt>
+ref (unique reference)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="fu">make_ref().</span>
+<span class="fu">#</span><span class="dt">Ref</span><span class="kw">&lt;</span><span class="fl">0.0</span><span class="fu">.</span><span class="fl">0.30</span><span class="kw">&gt;</span></code></pre>
+</dd>
+</dl>
+</section>
+
+<section id="collections" class="syntax">
+<h2>
+Collections
+</h2>
+<dl>
+<dt>
+Lists
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="fu">[</span><span class="dv">1</span><span class="fu">,</span> <span class="dv">2</span><span class="fu">,</span> <span class="dv">3</span><span class="fu">]</span> <span class="kw">=</span> <span class="fu">[</span><span class="dv">1</span> <span class="fu">|</span> <span class="fu">[</span><span class="dv">2</span> <span class="fu">|</span> <span class="fu">[</span><span class="dv">3</span> <span class="fu">|</span> <span class="fu">[]]]]</span></code></pre>
+</dd>
+<dt>
+Tuples
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="fu">{</span><span class="ch">one</span><span class="fu">,</span> <span class="ch">two</span><span class="fu">,</span> <span class="dv">3</span><span class="fu">}</span></code></pre>
+</dd>
+</dl>
+</section>
+
+<section id="other-types" class="syntax">
+<dl>
+<dt>
+fun (function reference)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="kw">fun</span> <span class="fu">()</span> <span class="kw">-&gt;</span> <span class="ch">ok</span> <span class="kw">end</span><span class="fu">.</span>
+<span class="fu">#</span><span class="dt">Fun</span><span class="kw">&lt;</span><span class="ch">erl_eval</span><span class="fu">.</span><span class="fl">20.80484245</span><span class="kw">&gt;</span>
+<span class="dv">2</span><span class="kw">&gt;</span> <span class="kw">fun</span> <span class="fu">erlang:self</span><span class="kw">/</span><span class="dv">0</span><span class="fu">.</span>
+<span class="fu">#</span><span class="dt">Fun</span><span class="kw">&lt;</span><span class="ch">erlang</span><span class="fu">.self.</span><span class="dv">0</span><span class="kw">&gt;</span></code></pre>
+</dd>
+<dt>
+pid (process identifier)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="fu">self().</span>
+<span class="kw">&lt;</span><span class="fl">0.35</span><span class="fu">.</span><span class="dv">0</span><span class="kw">&gt;</span></code></pre>
+</dd>
+<dt>
+port (port identifier, similar to pid)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="fu">erlang:open_port(</span>
+    <span class="fu">{spawn,</span> <span class="st">&quot;/bin/ls&quot;</span><span class="fu">},</span> <span class="fu">[]).</span>     
+<span class="fu">#</span><span class="dt">Port</span><span class="kw">&lt;</span><span class="fl">0.606</span><span class="kw">&gt;</span></code></pre>
+</dd>
+</dl>
+</section>
+
+<section id="not-types" class="syntax">
+<dl>
+<dt>
+booleans are atoms
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="ch">true</span> <span class="kw">/=</span> <span class="ch">false</span></code></pre>
+</dd>
+<dt>
+characters are integers, strings are lists
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="st">&quot;abc&quot;</span> <span class="kw">==</span> <span class="fu">[</span><span class="dv">$a</span><span class="fu">,</span> <span class="dv">$b</span> <span class="fu">|</span> <span class="fu">[</span><span class="dv">99</span><span class="fu">]]</span></code></pre>
+</dd>
+<dt>
+records are tuples
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">-</span><span class="fu">record(</span><span class="ch">foo</span><span class="fu">,</span> <span class="fu">{</span><span class="ch">bar</span><span class="fu">}).</span>
+<span class="fu">#</span><span class="ch">foo</span><span class="fu">{</span><span class="ch">bar</span><span class="kw">=</span><span class="dv">1</span><span class="fu">}</span> <span class="kw">==</span> <span class="fu">{</span><span class="ch">foo</span><span class="fu">,</span> <span class="dv">1</span><span class="fu">}</span></code></pre>
+</dd>
+</dl>
+</section>
+
+<section id="variables" class="syntax">
+<dl>
+<dt>
+Variables are single assignment (and UpperCase)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="fu">.</span>
+<span class="kw">**</span> <span class="ch">exception</span> <span class="ch">error</span><span class="fu">:</span> <span class="ch">no</span> <span class="ch">match</span> …</code></pre>
+</dd>
+<dt>
+Assignment is pattern matching! (_ is wildcard)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="dv">1</span><span class="kw">&gt;</span> <span class="fu">{[</span><span class="dt">X</span><span class="fu">],</span> <span class="dt">_</span><span class="fu">}</span> <span class="kw">=</span> <span class="fu">{[</span><span class="ch">foo</span><span class="fu">],</span> <span class="ch">bar</span><span class="fu">},</span> <span class="dt">X</span><span class="fu">.</span>
+<span class="ch">foo</span>
+<span class="dv">2</span><span class="kw">&gt;</span> <span class="fu">{</span><span class="dt">X</span><span class="fu">,</span> <span class="dt">Y</span><span class="fu">}</span> <span class="kw">=</span> <span class="fu">{</span><span class="ch">foo</span><span class="fu">,</span> <span class="ch">bar</span><span class="fu">},</span> <span class="dt">Y</span><span class="fu">.</span>
+<span class="ch">bar</span></code></pre>
+</section>
+
+<section id="guards" class="syntax">
+<dl>
+<dt>
+Functions and case can use guards when pattern matching
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">case</span> <span class="fu">date()</span> <span class="kw">of</span>
+  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">10</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">=&lt;</span> <span class="dv">3</span> <span class="kw">-&gt;</span>
+     <span class="ch">bob_is_in_vegas</span><span class="fu">;</span>
+  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">9</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">&gt;</span> <span class="dv">26</span> <span class="kw">-&gt;</span>
+     <span class="ch">this_talk_already_happened</span><span class="fu">;</span>
+  <span class="dt">_</span> <span class="kw">-&gt;</span>
+     <span class="ch">this_talk_hasnt_happened_yet</span>
+<span class="kw">end</span><span class="fu">.</span></code></pre>
+</dd>
+</section>
+
+<section id="punctuation" class="syntax">
+<dl>
+<dt>
+Comma delimits expressions (&quot;then&quot;)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="fu">first(),</span> <span class="fu">second(),</span> <span class="fu">third().</span></code></pre>
+</dd>
+<dt>
+Semicolon delimits clauses (&quot;or&quot;)
+</dt>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">case</span> <span class="dt">X</span> <span class="kw">of</span>
+  <span class="dv">1</span> <span class="kw">-&gt;</span> <span class="ch">one</span><span class="fu">;</span>
+  <span class="dv">2</span> <span class="kw">-&gt;</span> <span class="ch">two</span><span class="fu">;</span>
+  <span class="dt">_</span> <span class="kw">-&gt;</span> <span class="ch">other_number</span>
+<span class="kw">end</span><span class="fu">.</span></code></pre>
+</dt>
+<dt>
+Period ends the last clause (&quot;.&quot;)
+</dt>
+<dd>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="fu">simple_function()</span> <span class="kw">-&gt;</span> <span class="ch">ok</span><span class="fu">.</span></code></pre>
+</dd>
+</dl>
+</section>
+
+<section id="modules">
+<h2>
+Modules
+</h2>
+<ul>
+<li>Flat namespace</li>
+<li>Explicit export of public functions</li>
+<li>Referenced by name (atom)</li>
+<li>Compiled to &quot;.beam&quot; file</li>
+<li>Can be reloaded in a running system</li>
+</ul>
+<pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="co">%% hello.erl</span>
+<span class="co">%% USAGE: hello:world().</span>
+<span class="kw">-module</span><span class="fu">(</span><span class="ch">hello</span><span class="fu">).</span>
+<span class="kw">-export</span><span class="fu">([</span><span class="ch">world</span><span class="kw">/</span><span class="dv">0</span><span class="fu">]).</span>
+
+<span class="fu">world()</span> <span class="kw">-&gt;</span> <span class="fu">io:format(</span><span class="st">&quot;hello world~n&quot;</span><span class="fu">,</span> <span class="fu">[]).</span></code></pre>
+</section>
+
+</section>
+<section id="more-info" class="slide level1">
+<h1>More Info</h1>
+<ul>
+<li><a href="http://erlang.org">Erlang.org</a></li>
+<li><a href="http://erlang-central.org">Erlang-Central.org</a></li>
+<li><a href="http://erlang-factory.com">Erlang-Factory.com</a></li>
+<li><a href="http://LearnYouSomeErlang.com">LearnYouSomeErlang.com</a></li>
+<li>#erlang on IRC (freenode)</li>
+</ul>
+</section>
+<section id="thanks" class="slide level1">
+<h1>Thanks!</h1>
+<table>
+<col style="width: 19%" /><col style="width: 59%" /><tbody>
+<tr class="odd">
+<td style="text-align: left;"><p><strong>Slides</strong></p></td>
+<td style="text-align: left;"><p><a href="http://bob.ippoli.to/intro-erlang-2013">http://bob.ippoli.to/intro-erlang-2013</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><strong>Email</strong></p></td>
+<td style="text-align: left;"><p>bob@redivi.com</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><strong>Twitter</strong></p></td>
+<td style="text-align: left;"><p><span class="citation" data-cites="etrepum">@etrepum</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>

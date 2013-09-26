@@ -1,0 +1,50 @@
+.reveal section h1 { margin-bottom: 30px; }
+
+#erlang strong { color: red; }
+
+#merge-sort-python pre { font-size: 0.45em; }
+
+#parse-tcp pre { font-size: 0.7em; }
+
+#scheduler object { width: 720px; }
+
+#message-passing pre { font-size: 1.2em; }
+
+#parse-http pre { font-size: 0.625em; }
+
+.syntax dl dt { text-align: left; font-weight: bold; }
+.syntax pre { box-shadow: none; font-size: 1.2em; }
+
+#concurrency-table { width: 100%; color: #666; }
+#concurrency-table .num { text-align: right; }
+#concurrency-table .name { padding-left: 1em; }
+#concurrency-table .bar-ctr { height: 0; z-index: -1}
+#concurrency-table .bar { height: 1.2em; background-color: #ccc; z-index: -1; }
+#concurrency-table .haskell .bar { width: 1.99%; }
+#concurrency-table .erlang .bar { width: 4.0625%; }
+#concurrency-table .erlang { color: #66f; }
+#concurrency-table .go .bar { width: 6.25%; }
+#concurrency-table .java-min .bar { width: 100%; }
+#concurrency-table .c-min .bar { width: 100%; }
+#concurrency-table .java .bar { width: 12.5%; background-color: #fcc; }
+#concurrency-table .c .bar { width: 100%; background-color: #fcc; }
+
+section.logos img { border: none; box-shadow: none; max-width: 150px; vertical-align: middle; margin: 1em; }
+#erlang-solutions-logo { max-width: 500px; }
+#cloudant-logo { max-width: none; }
+#the-boston-globe-logo { max-width: none; width: 500px; }
+#the-huffington-post-logo { max-width: none; }
+svg.full { width: 100%; }
+.diagram text { text-anchor: middle; alignment-baseline: central; }
+.diagram rect { fill: none; stroke: black; }
+.diagram circle { stroke: rgb(0, 0, 0); }
+.diagram line { stroke: rgb(0, 0, 0); }
+.diagram .supervisor circle { fill: rgb(255,128,128); }
+.diagram .worker circle { fill: rgb(128,255,128); }
+.diagram .messages circle { fill: rgb(128,128,255); }
+.diagram .messages circle.response { fill: rgb(128,255,255); }
+.diagram .node > text, .diagram .epmd > text { font-size: 80%; }
+.diagram .epmd > rect { fill: rgb(230, 230, 230); }
+.diagram line.tcp { stroke-width: 5; stroke-dasharray: 15,5; }
+.diagram .phase1 { opacity: 0; }
+.diagram .phase2 { opacity: 0; }
