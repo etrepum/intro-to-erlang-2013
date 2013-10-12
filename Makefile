@@ -19,6 +19,8 @@ index.html: slides.md header.html Makefile | d3 reveal.js
 	$(PANDOC) -s \
 	  --mathjax \
 	  --include-in-header="header.html" \
+	  --variable=transition:none \
+	  --variable=css:css/simple.css \
 	  -t revealjs \
 	  -o $@ \
 	  $< 

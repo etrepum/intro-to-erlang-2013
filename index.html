@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Bob Ippolito" />
-  <meta name="dcterms.date" content="2013-09-26" />
   <title>Introducing Erlang</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -30,7 +29,7 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
     </style>
-    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="css/simple.css"/>
   <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
   <!--[if lt IE 9]>
   <script src="reveal.js/lib/js/html5shiv.js"></script>
@@ -46,7 +45,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section>
     <h1 class="title">Introducing Erlang</h1>
     <h2 class="author">Bob Ippolito</h2>
-    <h3 class="date">September 26, 2013</h3>
+    <h3 class="date">RuPy 2013<br />Budapest, Hungary</h3>
 </section>
 
 <section id="what-do-i-know" class="slide level1">
@@ -217,7 +216,8 @@ Open Source
 <li>Riak (Basho)</li>
 <li>CouchDB (CouchBase, Cloudant)</li>
 <li>ejabberd (Process-One)</li>
-<li>RabbitMQ (LShift → VMWare)
+<li>RabbitMQ (LShift → VMWare)</li>
+<li>Disco (Nokia)
 </section>
 </li>
 </ul>
@@ -805,12 +805,13 @@ Functions and case can use guards when pattern matching
 </dt>
 <dd>
 <pre class="sourceCode erlang"><code class="sourceCode erlang"><span class="kw">case</span> <span class="fu">date()</span> <span class="kw">of</span>
-  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">10</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">=&lt;</span> <span class="dv">3</span> <span class="kw">-&gt;</span>
-     <span class="ch">bob_is_in_vegas</span><span class="fu">;</span>
-  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">9</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">&gt;</span> <span class="dv">26</span> <span class="kw">-&gt;</span>
-     <span class="ch">this_talk_already_happened</span><span class="fu">;</span>
+  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">10</span><span class="fu">,</span> <span class="dv">31</span><span class="fu">}</span> <span class="kw">-&gt;</span>
+     <span class="ch">halloween</span><span class="fu">;</span>
+  <span class="fu">{</span><span class="dv">2013</span><span class="fu">,</span> <span class="dv">10</span><span class="fu">,</span> <span class="dt">N</span><span class="fu">}</span> <span class="ch">when</span> <span class="dt">N</span> <span class="kw">&gt;=</span> <span class="dv">11</span><span class="fu">,</span> 
+                     <span class="dt">N</span> <span class="kw">=&lt;</span> <span class="dv">13</span> <span class="kw">-&gt;</span>
+     <span class="ch">rupy_conference</span><span class="fu">;</span>
   <span class="dt">_</span> <span class="kw">-&gt;</span>
-     <span class="ch">this_talk_hasnt_happened_yet</span>
+     <span class="ch">some_other_day</span>
 <span class="kw">end</span><span class="fu">.</span></code></pre>
 </dd>
 </section>
@@ -868,6 +869,7 @@ Modules
 <li><a href="http://erlang-central.org">Erlang-Central.org</a></li>
 <li><a href="http://erlang-factory.com">Erlang-Factory.com</a></li>
 <li><a href="http://LearnYouSomeErlang.com">LearnYouSomeErlang.com</a></li>
+<li><a href="http://chimera.labs.oreilly.com/books/1234000000726">Études for Erlang</a></li>
 <li>#erlang on IRC (freenode)</li>
 </ul>
 </section>
@@ -910,7 +912,7 @@ Modules
         history: true,
         center: true,
         theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
 
         // Optional libraries used to extend on reveal.js
         dependencies: [

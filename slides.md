@@ -1,6 +1,6 @@
 % Introducing Erlang
 % Bob Ippolito
-% September 26, 2013
+% RuPy 2013<br />Budapest, Hungary
 
 # What do I know?
 
@@ -136,6 +136,7 @@
 - CouchDB (CouchBase, Cloudant)
 - ejabberd (Process-One)
 - RabbitMQ (LShift &rarr; VMWare)
+- Disco (Nokia)
 </section>
 
 # Not good for
@@ -748,12 +749,13 @@ bar
 <dd>
 ```erlang
 case date() of
-  {2013, 10, N} when N =< 3 ->
-     bob_is_in_vegas;
-  {2013, 9, N} when N > 26 ->
-     this_talk_already_happened;
+  {2013, 10, 31} ->
+     halloween;
+  {2013, 10, N} when N >= 11, 
+                     N =< 13 ->
+     rupy_conference;
   _ ->
-     this_talk_hasnt_happened_yet
+     some_other_day
 end.
 ```
 </dd>
@@ -809,6 +811,7 @@ world() -> io:format("hello world~n", []).
 * [Erlang-Central.org](http://erlang-central.org)
 * [Erlang-Factory.com](http://erlang-factory.com)
 * [LearnYouSomeErlang.com](http://LearnYouSomeErlang.com)
+* [Études for Erlang](http://chimera.labs.oreilly.com/books/1234000000726)
 * \#erlang on IRC (freenode)
 
 # Thanks!
