@@ -373,7 +373,7 @@ RAM footprint per unit of concurrency (approx)
     </td>
 </tr>
 <tr class="go">
-    <td class="num">4.0 KB</td>
+    <td class="num">8.0 KB</td>
     <td class="name">
         <div class="bar-ctr"><div class="bar"></div></div>
         <span>Go goroutine</span>
